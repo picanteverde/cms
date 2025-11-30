@@ -1,0 +1,118 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction/Welcome" />
+
+# CMS Content Library
+
+Welcome to the **CMS Content Library** - a powerful React + Tailwind CSS system for building dynamic landing pages from JSON configuration.
+
+## 🚀 Quick Start
+
+The CMS library allows you to create entire pages using simple JSON objects:
+
+```tsx
+import { CMSContent, defaultComponentRegistry } from '@picanteverde/cms';
+
+const content = [
+  {
+    type: 'Hero',
+    title: 'Welcome',
+    subtitle: 'Build pages with JSON',
+    call_to_action: 'Get Started'
+  }
+];
+
+<CMSContent
+  content={content}
+  components={defaultComponentRegistry}
+/>
+```
+
+## 📚 Key Concepts
+
+### Components (Uppercase)
+
+Components are React components that start with **uppercase** letters:
+
+- `Hero` - Banner sections
+- `Container` - Layout wrapper
+- `Card` - Card containers
+- `Button` - Interactive buttons
+- `Text`, `Title` - Typography
+- And more...
+
+### Templates (lowercase)
+
+Templates are reusable patterns that start with **lowercase** letters:
+
+- `hero` - Pre-configured hero sections
+- `featureCard` - Feature cards with icon/title/description
+
+Templates use placeholder syntax (`$variable`) that gets replaced with your data:
+
+```json
+{
+  "type": "featureCard",
+  "icon": "⚙️",
+  "title": "My Feature",
+  "description": "Feature description"
+}
+```
+
+### Nested Components
+
+Any property can be a component instead of a simple value:
+
+```json
+{
+  "type": "Hero",
+  "title": {
+    "type": "Text",
+    "text": "Custom Title",
+    "size": "4xl",
+    "weight": "bold"
+  }
+}
+```
+
+### Content Property
+
+The special `content` property renders as children:
+
+```json
+{
+  "type": "Container",
+  "content": [
+    { "type": "Text", "text": "First item" },
+    { "type": "Text", "text": "Second item" }
+  ]
+}
+```
+
+## 🎨 Explore the Library
+
+Use the sidebar to explore:
+
+1. **Components** - Individual building blocks with interactive controls
+2. **Templates** - Pre-built patterns for common use cases
+3. **CMS/Integration Examples** - Complete page examples built with JSON
+
+## 💡 Features
+
+- ✅ **JSON-driven** - Define entire pages in JSON
+- ✅ **Fully typed** - TypeScript support throughout
+- ✅ **Tailwind CSS** - Utility-first styling
+- ✅ **Nested components** - Infinite composition
+- ✅ **Template system** - Reusable patterns
+- ✅ **Extensible** - Add custom components easily
+
+## 🔧 Interactive Demos
+
+Every component and template in this Storybook has:
+
+- **Interactive controls** - Modify props in real-time
+- **Multiple variants** - See different use cases
+- **Live preview** - Instant visual feedback
+- **Code examples** - Copy-paste ready code
+
+Start exploring with the **Components** section to see each building block in action!

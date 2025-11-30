@@ -1,0 +1,250 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction/Getting Started" />
+
+# Getting Started
+
+This guide will help you understand how to use the CMS Content Library to build dynamic pages.
+
+## Installation
+
+```bash
+npm install @picanteverde/cms
+```
+
+## Basic Usage
+
+### 1. Import the Library
+
+```tsx
+import {
+  CMSContent,
+  defaultComponentRegistry,
+  defaultTemplateRegistry
+} from '@picanteverde/cms';
+```
+
+### 2. Define Your Content
+
+Create a JSON configuration:
+
+```tsx
+const content = [
+  {
+    type: 'Hero',
+    title: 'Welcome to My Site',
+    subtitle: 'Build amazing pages with JSON',
+    background: 'bg-gradient-radial from-blue-50 via-blue-50 to-blue-100/50',
+    padding: 'lg',
+    call_to_action: 'Get Started'
+  },
+  {
+    type: 'Container',
+    maxWidth: 'xl',
+    content: [
+      {
+        type: 'Title',
+        text: 'Features',
+        level: 'h2',
+        size: '3xl'
+      },
+      {
+        type: 'Text',
+        text: 'Our platform offers amazing features...'
+      }
+    ]
+  }
+];
+```
+
+### 3. Render with CMSContent
+
+```tsx
+function App() {
+  return (
+    <CMSContent
+      content={content}
+      components={defaultComponentRegistry}
+      templates={defaultTemplateRegistry}
+    />
+  );
+}
+```
+
+## Understanding Component Types
+
+### Built-in Components
+
+All component types start with **Uppercase**:
+
+| Component | Purpose | Key Props |
+|-----------|---------|-----------|
+| `Hero` | Banner sections | `title`, `subtitle`, `call_to_action`, `background`, `padding` |
+| `Container` | Layout wrapper | `maxWidth`, `className`, `content` |
+| `Card` | Card container | `icon`, `title`, `description`, `className` |
+| `Button` | Interactive button | `text`, `href`, `variant`, `size`, `icon` |
+| `Text` | Text elements | `text`, `level`, `size`, `weight`, `color` |
+| `Title` | Headings | `text`, `level`, `size`, `className` |
+| `Image` | Images | `src`, `alt`, `className`, `width`, `height` |
+| `Icon` | Icons/emojis | `icon`, `size`, `className` |
+| `Footer` | Footer section | `mail`, `text`, `background` |
+
+### Templates
+
+Template types start with **lowercase**:
+
+| Template | Purpose | Parameters |
+|----------|---------|------------|
+| `hero` | Hero section | `title`, `description`, `cta` |
+| `featureCard` | Feature card | `icon`, `title`, `description` |
+
+## Advanced Features
+
+### Nested Components
+
+Properties can contain other components:
+
+```json
+{
+  "type": "Button",
+  "text": "Click Me",
+  "icon": {
+    "type": "Icon",
+    "icon": "🚀",
+    "size": "md"
+  }
+}
+```
+
+### Using Templates
+
+Templates hide complexity behind simple interfaces:
+
+```json
+{
+  "type": "featureCard",
+  "icon": "⚙️",
+  "title": "Customizable",
+  "description": "Fully configurable to your needs"
+}
+```
+
+This expands to a full Card component with nested Icon, Title, and Text components!
+
+### Content Arrays
+
+Group multiple items:
+
+```json
+{
+  "type": "Container",
+  "className": "grid grid-cols-3 gap-4",
+  "content": [
+    { "type": "featureCard", "icon": "⚙️", "title": "Feature 1" },
+    { "type": "featureCard", "icon": "🚀", "title": "Feature 2" },
+    { "type": "featureCard", "icon": "💡", "title": "Feature 3" }
+  ]
+}
+```
+
+## Creating Custom Components
+
+### 1. Define Component
+
+```tsx
+import { ComponentProps } from '@picanteverde/cms';
+
+interface MyComponentProps extends ComponentProps {
+  customProp?: string;
+}
+
+export function MyComponent({ customProp, children }: MyComponentProps) {
+  return (
+    <div className="my-custom-component">
+      <p>{customProp}</p>
+      {children}
+    </div>
+  );
+}
+```
+
+### 2. Add to Registry
+
+```tsx
+const myRegistry = {
+  ...defaultComponentRegistry,
+  MyComponent
+};
+
+<CMSContent
+  content={content}
+  components={myRegistry}
+/>
+```
+
+### 3. Use in JSON
+
+```json
+{
+  "type": "MyComponent",
+  "customProp": "Hello!"
+}
+```
+
+## Creating Custom Templates
+
+### 1. Define Template
+
+Create `myTemplate.json`:
+
+```json
+{
+  "name": "myTemplate",
+  "content": {
+    "type": "Container",
+    "className": "p-6 bg-white rounded-lg shadow",
+    "content": [
+      {
+        "type": "Title",
+        "text": "$title",
+        "level": "h3",
+        "size": "xl"
+      },
+      {
+        "type": "Text",
+        "text": "$body",
+        "color": "text-gray-600"
+      }
+    ]
+  }
+}
+```
+
+### 2. Load Template
+
+```tsx
+import { createTemplateRegistry } from '@picanteverde/cms';
+import myTemplate from './myTemplate.json';
+
+const templates = {
+  ...defaultTemplateRegistry,
+  ...createTemplateRegistry([myTemplate])
+};
+```
+
+### 3. Use Template
+
+```json
+{
+  "type": "myTemplate",
+  "title": "My Title",
+  "body": "My content"
+}
+```
+
+## Next Steps
+
+- Explore **Components** to see all available building blocks
+- Check **Templates** for pre-built patterns
+- View **CMS/Integration Examples** for complete page examples
+- Experiment with the interactive controls in each story!

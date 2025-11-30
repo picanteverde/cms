@@ -1,0 +1,24 @@
+{
+  "name": "featureCard",
+  "content": {
+    "type": "Card",
+    "className": "text-center",
+    "icon": {
+      "type": "Icon",
+      "icon": "$icon",
+      "size": "lg"
+    },
+    "title": {
+      "type": "Title",
+      "level": "h3",
+      "size": "xl",
+      "text": "$title",
+      "className": "mb-3"
+    },
+    "description": {
+      "type": "Text",
+      "text": "$description",
+      "color": "text-gray-600"
+    }
+  }
+}

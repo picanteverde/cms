@@ -1,0 +1,11 @@
+{
+  "name": "hero",
+  "content": {
+    "type": "Hero",
+    "title": "$title",
+    "subtitle": "$description",
+    "background": "bg-gradient-radial from-blue-50 via-blue-50 to-blue-100/50",
+    "padding": "xl",
+    "call_to_action": "$cta"
+  }
+}
